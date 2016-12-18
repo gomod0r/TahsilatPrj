@@ -5,9 +5,24 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
     <application>
-	  <message-bundle>
-	  	tr.gov.gomodor.msj.Messages
-	  </message-bundle>
+        
+        <locale-config>
+            
+            <default-locale>tr</default-locale>
+            <supported-locale>en</supported-locale>
+            
+        </locale-config>
+        
+        <resource-bundle>
+            
+            <base-name>tr.gov.gomodor.tahsilatprj.msg.Mesajlar</base-name>
+            <var>msg</var>
+            
+        </resource-bundle>
+        
+	<message-bundle>
+            tr.gov.gomodor.tahsilatprj.msg.ValidationMessages
+	</message-bundle>
      </application>
     
 </faces-config>
