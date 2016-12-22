@@ -4,14 +4,71 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>#{msg.tahsilatprj.dummy.title}</title>
+        <title>#{msg['tahsilatprj.dummy.title']}</title>
     </h:head>
     <h:body>
         <h:form>
             
-            <p:panel header="#{msg.tahsilatprj.dummy.panel.header}">
+            <p:panel header="#{msg['tahsilatprj.dummy.panel.header']}" 
+                     style="margin: 0 auto;
+                            margin-top: 100px; 
+                            text-align: center;
+                            width: 60%;">
                 
+                <p:growl showDetail="true"/>
                 
+                <p:panelGrid columns="3" style="margin: 0 auto">
+                    
+                    <p:outputLabel value="#{msg['tahsilatprj.dummy.kullanici']}"
+                                   for="kullanici"/>
+                    <p:inputText id="kullanici"
+                                 value="#{dummyBean.ad}"
+                                 required="true">
+                    
+                        <p:ajax event="keyup" update="kullaniciMsg"/>
+                    
+                    </p:inputText>
+                    <p:message for="kullanici" id="kullaniciMsg"/>
+                    
+                    <p:outputLabel value="#{msg['tahsilatprj.dummy.sifre']}"
+                                   for="sifre"/>
+                    <p:password id="sifre"
+                                value="#{dummyBean.sifre}"
+                                required="true">
+                   
+                        <p:ajax event="keyup" update="sifreMsg"/>
+                    
+                    </p:password>
+                    <p:message for="sifre" id="sifreMsg"/>
+                    
+                    <p:outputLabel value=""/>
+                    
+                    <p:commandButton value="#{msg['tahsilatprj.dummy.girisButton']}"
+                                     action="#{dummyBean.sayfayaGit()}"
+                                     update="@form"/>
+                    
+                    <p:outputLabel value=""/>
+                    
+                </p:panelGrid>
+                
+                <hr/>
+                <p:commandLink action="#{dilBean.dilDegistir('tr')}"
+                               immediate="true"
+                               ajax="false">
+                    
+                    <h:graphicImage library="img" name="Turkey.png"/>
+                    
+                </p:commandLink>
+                
+                &nbsp;
+                
+                <p:commandLink action="#{dilBean.dilDegistir('en')}"
+                               immediate="true"
+                               ajax="false">
+                    
+                    <h:graphicImage library="img" name="English.png"/>
+                    
+                </p:commandLink>
                 
             </p:panel>
             
