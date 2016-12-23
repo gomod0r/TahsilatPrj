@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Kisi.findByDogtar", query = "SELECT k FROM Kisi k WHERE k.dogtar = :dogtar"),
     @NamedQuery(name = "Kisi.findByMaas", query = "SELECT k FROM Kisi k WHERE k.maas = :maas"),
     @NamedQuery(name = "Kisi.findByTema", query = "SELECT k FROM Kisi k WHERE k.tema = :tema"),
-    @NamedQuery(name = "Kisi.girisKontrol", query = "SELECT k FROM Kisi k WHERE k.kullaniciAd = :kullaniciAd AND ksifre = :sifre"),
+    @NamedQuery(name = "Kisi.girisKontrol", query = "SELECT k FROM Kisi k WHERE k.kullaniciAd = :kullaniciAd and k.sifre = :sifre"),
     @NamedQuery(name = "Kisi.findByKullaniciAd", query = "SELECT k FROM Kisi k WHERE k.kullaniciAd = :kullaniciAd"),
     @NamedQuery(name = "Kisi.findBySifre", query = "SELECT k FROM Kisi k WHERE k.sifre = :sifre")})
 public class Kisi implements Serializable {
