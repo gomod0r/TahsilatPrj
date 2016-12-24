@@ -41,6 +41,7 @@ public class LanguageBean implements Serializable {
     
     public void yeniDilSecildiginde(){
         
+        
         FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale(localeCode));
         
     }

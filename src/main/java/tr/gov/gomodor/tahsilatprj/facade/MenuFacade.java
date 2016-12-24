@@ -1,5 +1,6 @@
 package tr.gov.gomodor.tahsilatprj.facade;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,6 +18,14 @@ public class MenuFacade extends AbstractFacade<Menu> {
 
     public MenuFacade() {
         super(Menu.class);
+    }
+    
+    public List<Menu> altMenuleriGetir(Integer p_ustno){
+        
+        return em.createNamedQuery("Menu.findByUstmenu")
+                .setParameter("ustmenu", p_ustno)
+                .getResultList();
+        
     }
     
 }

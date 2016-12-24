@@ -4,7 +4,6 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ResourceBundle;
-import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -25,6 +24,12 @@ public class KisiBean implements Serializable {
     private KisiService kisiService;
     
     public KisiBean() {
+        
+        kisi.setTema("blitzer");
+        
+        kisi.setKullaniciAd("mhakan");
+        kisi.setSifre("1453");
+        
     }
 
     public Kisi getKisi() {
@@ -53,10 +58,12 @@ public class KisiBean implements Serializable {
             
         } else {
             
+            kisi = new Kisi();
+            
             JSFUtil.hataGoster(backendText.getString("tahsilatprj.giris.loginErrorSummary"), 
                                backendText.getString("tahsilatprj.giris.loginErrorDetail"));
             
-            return "giris.xhtml";
+            return "";
             
         }
  

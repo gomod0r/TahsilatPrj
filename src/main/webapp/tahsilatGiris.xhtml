@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./anaTemplate.xhtml">
+
+            <ui:define name="sayfaBasligi">
+                #{msg['tahsilatprj.tahsilatGiris.sayfabasligi']}
+            </ui:define>
+
+            <ui:define name="content">
+                
+                <h:form id="tahsilatgirisForm">
+                    
+                    <p:panelGrid columns="3">
+                        
+                        <p:outputLabel value="Kurum Adı:" for="otoKurum"/>
+                        <p:autoComplete id="otoKurum"
+                                        value="#{tahsilatBean.tahsilat.kurum.ad}"
+                                        completeMethod="#{tahsilatBean.kurumAdiTamamla}"
+                                        required="true"/>
+                        <p:message for="otoKurum"/>
+                        
+                        <p:outputLabel value="Abone No:" for="aboneNo"/>
+                        <p:inputText id="aboneNo"
+                                     value="#{tahsilatBean.borc.aboneNo}"
+                                     required="true"/>
+                        <p:message for="aboneNo"/>
+                        
+                        <p:outputLabel value=""/>
+                        
+                        <p:commandButton value="Sorgula"
+                                         action="#{tahsilatBean.borcSorgula()}"
+                                         update="@form"
+                                         ajax="false"/>
+                                         
+                        <p:outputLabel value=""/>
+                        
+                    </p:panelGrid>
+                    
+                </h:form>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

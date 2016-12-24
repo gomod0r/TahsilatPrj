@@ -6,6 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>#{msg['tahsilatprj.dummy.title']}</title>
+        
     </h:head>
     <h:body>
         <h:form>
@@ -35,6 +36,7 @@
                                    for="sifre"/>
                     <p:password id="sifre"
                                 value="#{kisiBean.kisi.sifre}"
+                                redisplay="true"
                                 required="true">
                    
                         <p:ajax event="keyup" update="sifreMsg"/>

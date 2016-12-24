@@ -41,6 +41,9 @@ public class Menu implements Serializable {
     @Size(max = 250)
     @Column(name = "LINK")
     private String link;
+    @Size(max = 50)
+    @Column(name = "ICON")
+    private String icon;
     @Column(name = "SIRANO")
     private Integer sirano;
     @Column(name = "USTMENU")
@@ -52,6 +55,14 @@ public class Menu implements Serializable {
     private List<Tip> tipList;
 
     public Menu() {
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public Menu(Integer no) {
