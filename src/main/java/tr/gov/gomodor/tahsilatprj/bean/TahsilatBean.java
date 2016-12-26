@@ -4,16 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import tr.gov.gomodor.tahsilatprj.entity.Borc;
 import tr.gov.gomodor.tahsilatprj.entity.Tahsilat;
 import tr.gov.gomodor.tahsilatprj.service.BorcService;
 import tr.gov.gomodor.tahsilatprj.service.KurumService;
+import tr.gov.gomodor.tahsilatprj.service.TahsilatService;
 
 @Named(value = "tahsilatBean")
-@ViewScoped
+@SessionScoped
 public class TahsilatBean implements Serializable{
     
     private Tahsilat tahsilat = new Tahsilat();
@@ -22,21 +23,65 @@ public class TahsilatBean implements Serializable{
     
     private List<Borc> kurumFaturaListesi = new ArrayList<Borc>();
     
+    private List<Borc> seciliFaturaListesi = new ArrayList<Borc>();
+    
+    private Double toplamPara;
+    private Double alinanPara;
+    private Double paraUstu;
+    
     @Inject
     private KurumService kurumService;
     
     @Inject
     private BorcService borcService;
     
+    @Inject
+    private TahsilatService tahsilatService;
+    
+    @Inject
+    private KisiBean kisiBean;
+    
     public TahsilatBean() {
         
     }
 
-    public List<Borc> getKuruFaturaListesi() {
+    public Double getToplamPara() {
+        return toplamPara;
+    }
+
+    public void setToplamPara(Double toplamPara) {
+        this.toplamPara = toplamPara;
+    }
+
+    public Double getAlinanPara() {
+        return alinanPara;
+    }
+
+    public void setAlinanPara(Double alinanPara) {
+        this.alinanPara = alinanPara;
+    }
+
+    public Double getParaUstu() {
+        return paraUstu;
+    }
+
+    public void setParaUstu(Double paraUstu) {
+        this.paraUstu = paraUstu;
+    }
+
+    public List<Borc> getSeciliFaturaListesi() {
+        return seciliFaturaListesi;
+    }
+
+    public void setSeciliFaturaListesi(List<Borc> seciliFaturaListesi) {
+        this.seciliFaturaListesi = seciliFaturaListesi;
+    }
+
+    public List<Borc> getKurumFaturaListesi() {
         return kurumFaturaListesi;
     }
 
-    public void setKuruFaturaListesi(List<Borc> kuruFaturaListesi) {
+    public void setKurumFaturaListesi(List<Borc> kuruFaturaListesi) {
         this.kurumFaturaListesi = kuruFaturaListesi;
     }
 
@@ -82,7 +127,39 @@ public class TahsilatBean implements Serializable{
         
         kurumFaturaListesi = borcService.borclariGetir(tahsilat.getKurum().getNo(), borc.getAboneNo());
         
+        toplamPara = 0.0;
+        alinanPara = 0.0;
+        paraUstu = 0.0;
+        
         return "tahsilatListele.xhtml?faces-redirect=true";
+        
+    }
+    
+    public void toplamParaHesapla(){
+        
+        toplamPara = 0.0;
+        
+        for (Borc fatura : seciliFaturaListesi) {
+            
+            toplamPara = toplamPara + fatura.getFaturaTutar();
+            
+        }
+        
+        paraUstuHesapla();
+        
+    }
+    
+    public void paraUstuHesapla(){
+        
+        paraUstu = alinanPara - toplamPara;
+        
+    }
+    
+    public String ode(){
+        
+        tahsilatService.ode(seciliFaturaListesi, kisiBean.getKisi());
+        
+        return "tahsilatSonuc.xhtml?faces-redirect=true";
         
     }
     

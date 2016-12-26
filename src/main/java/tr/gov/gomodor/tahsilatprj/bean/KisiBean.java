@@ -25,10 +25,7 @@ public class KisiBean implements Serializable {
     
     public KisiBean() {
         
-        kisi.setTema("blitzer");
-        
-        kisi.setKullaniciAd("mhakan");
-        kisi.setSifre("1453");
+        kisi.setTema("bluesky");
         
     }
 

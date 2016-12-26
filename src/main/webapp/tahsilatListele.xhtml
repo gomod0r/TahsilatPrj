@@ -1,7 +1,11 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -12,10 +16,129 @@
             </ui:define>
 
             <ui:define name="content">
-                Listeleye geldik.
+
+                <h:form id="tahsilatListeleForm">
+
+                    <p:panelGrid columns="2">
+
+                        <p:outputLabel value="Kurum Adı: "/>
+                        <p:outputLabel value="#{tahsilatBean.tahsilat.kurum.ad}"/>
+
+                        <p:outputLabel value="Ad Soyad: "/>
+                        <p:outputLabel value="#{tahsilatBean.kurumFaturaListesi.get(0).getAboneAd()} #{tahsilatBean.kurumFaturaListesi.get(0).getAboneSoyad()}"/>
+
+                        <p:outputLabel value="Abone No: "/>
+                        <p:outputLabel value="#{tahsilatBean.borc.aboneNo}"/>
+
+                    </p:panelGrid>
+
+                    <hr/>
+
+                    <p:dataTable id="faturaTablo"
+                                 value="#{tahsilatBean.kurumFaturaListesi}"
+                                 var="borc"
+                                 paginator="false"
+                                 scrollable="true"
+                                 scrollWidth="100%"
+                                 scrollHeight="100"
+                                 selection="#{tahsilatBean.seciliFaturaListesi}"
+                                 rowKey="#{borc.no}">
+
+                        <p:ajax event="rowSelectCheckbox"
+                                listener="#{tahsilatBean.toplamParaHesapla()}"
+                                update="@form"/>
+
+                        <p:ajax event="rowUnselectCheckbox"
+                                listener="#{tahsilatBean.toplamParaHesapla()}"
+                                update="@form"/>
+
+                        <p:ajax event="toggleSelect"
+                                listener="#{tahsilatBean.toplamParaHesapla()}"
+                                update="@form"/>
+                        
+                        <p:ajax event="rowSelect"
+                                listener="#{tahsilatBean.toplamParaHesapla()}"
+                                update="@form"/>
+                        
+                        <p:ajax event="rowUnselect"
+                                listener="#{tahsilatBean.toplamParaHesapla()}"
+                                update="@form"/>
+
+                        <p:column selectionMode="multiple" style="width: 16px; text-align: center"/>
+
+                        <p:column headerText="Fatura No" style="width: 80px">
+
+                            <p:outputLabel value="#{borc.faturaNo}"/>
+
+                        </p:column>
+
+                        <p:column headerText="Son Ödeme Tarihi" style="width: 80px">
+
+                            <p:outputLabel value="#{borc.faturaSonOdemeTrh}">
+
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+
+                            </p:outputLabel>
+
+                        </p:column>
+
+                        <p:column headerText="Tutar" style="width: 80px">
+
+                            <p:outputLabel value="#{borc.faturaTutar}">
+
+                                <f:convertNumber maxFractionDigits="2"/>
+
+                            </p:outputLabel>                            
+                        </p:column>
+
+                    </p:dataTable>
+
+                    
+
+                    <p:panelGrid columns="3">
+
+                        <p:outputLabel value="Toplam:"/>
+                        <p:inputText id="toplam"
+                                     value="#{tahsilatBean.toplamPara}"
+                                     readonly="true">
+                        
+                            <f:convertNumber maxFractionDigits="2"/>
+                        
+                        </p:inputText>
+                        <p:outputLabel value=""/>
+
+                        <p:outputLabel value="Alınan:"/>
+                        <p:inputText id="alinan"
+                                     value="#{tahsilatBean.alinanPara}">
+                        
+                            <p:ajax event="keyup" 
+                                    listener="#{tahsilatBean.paraUstuHesapla()}"
+                                    update="paraUstu"/>
+                        
+                        </p:inputText>
+                        <p:commandButton value="ÖDE"
+                                         action="#{tahsilatBean.ode()}"
+                                         update="@form"
+                                         ajax="false"/>
+
+                        <p:outputLabel value="Para Üstü:"/>
+                        <p:inputText id="paraUstu"
+                                     value="#{tahsilatBean.paraUstu}"
+                                     readonly="true">
+                        
+                            <f:convertNumber maxFractionDigits="2"/>
+                        
+                        </p:inputText>
+                        <p:outputLabel value=""/>
+
+                    </p:panelGrid>
+
+                </h:form>
+
             </ui:define>
 
         </ui:composition>
 
     </body>
+    
 </html>

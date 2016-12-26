@@ -55,6 +55,8 @@ public class Kisi implements Serializable {
     private Date dogtar;
     @Column(name = "MAAS")
     private Double maas;
+    @Column(name = "ISLEMSAYI")
+    private Integer islemSayi;
     @Size(max = 50)
     @Column(name = "TEMA")
     private String tema;
@@ -72,6 +74,14 @@ public class Kisi implements Serializable {
         
         tip = new Tip();
         
+    }
+
+    public Integer getIslemSayi() {
+        return islemSayi;
+    }
+
+    public void setIslemSayi(Integer islemSayi) {
+        this.islemSayi = islemSayi;
     }
 
     public Kisi(Integer no) {

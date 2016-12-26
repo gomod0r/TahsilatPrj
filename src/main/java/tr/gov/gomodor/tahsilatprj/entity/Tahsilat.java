@@ -55,10 +55,22 @@ public class Tahsilat implements Serializable {
     @ManyToOne
     private Kurum kurum;
 
+    @JoinColumn(name = "KISI_NO", referencedColumnName = "NO")
+    @ManyToOne
+    private Kisi kisi;
+    
     public Tahsilat() {
         
         kurum = new Kurum();
         
+    }
+
+    public Kisi getKisi() {
+        return kisi;
+    }
+
+    public void setKisi(Kisi kisi) {
+        this.kisi = kisi;
     }
 
     public Tahsilat(Integer no) {
@@ -138,5 +150,5 @@ public class Tahsilat implements Serializable {
     public String toString() {
         return "tr.gov.gomodor.tahsilatprj.entity.Tahsilat[ no=" + no + " ]";
     }
-    
+
 }
